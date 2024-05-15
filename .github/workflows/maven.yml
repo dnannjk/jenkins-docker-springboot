@@ -41,8 +41,6 @@ jobs:
       - name: Docker build and push DEV
         id: docker-build-and-push-dev
         run: |
-          VERSION=vDEV$(date "+%Y%m%d%H%M%S")
-          IMAGE_TAG=767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:$VERSION
-          docker build . --file Dockerfile -t $IMAGE_TAG
-          docker push $IMAGE_TAG
-          eval echo "::set-output name=version::$VERSION"
+          docker build -t springboot-github-workflow-deployment .
+          docker tag springboot-github-workflow-deployment:latest 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
+          docker push 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
