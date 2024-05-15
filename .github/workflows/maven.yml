@@ -17,12 +17,12 @@ on:
 jobs:
   docker-image-dev:
     runs-on: ubuntu-latest
-    # container: 
-    #   image: 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment
-    #   credentials:
-    #     username: AWS
-    #     password: "${{ secrets.AWS_ECR_PASSWORD }}"
-    #   options: --user root
+    container: 
+      image: 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment
+      credentials:
+        username: AWS
+        password: "${{ secrets.AWS_ECR_PASSWORD }}"
+      options: --user root
     steps:
       - name: Login to ECR
         run: |
