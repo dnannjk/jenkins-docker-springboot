@@ -51,6 +51,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install eksctl
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl
+          curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | sudo tar xz -C /usr/local/bin
+
+      - name: Install kubectl
+        run: |
+          sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2
+          curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+          echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+          sudo apt-get update
+          sudo apt-get install -y kubectl
+        
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -60,10 +74,10 @@ jobs:
 
       - name: Create Amazon EKS cluster
         run: |
-          eksctl create cluster --name spring-boot-21-linux --version 1.28 --nodes=1 --node-type=t2.small --region us-east-1
+          eksctl create cluster --name springboot-github-workflow --version 1.28 --nodes=1 --node-type=t2.small --region us-east-1
 
       - name: Configure kubectl for Amazon EKS cluster
-        run: aws eks --region us-east-1 update-kubeconfig --name spring-boot-21-linux
+        run: aws eks --region us-east-1 update-kubeconfig --name springboot-github-workflow
 
       - name: Deploy pod
         run: kubectl apply -f ../k8s.yaml
