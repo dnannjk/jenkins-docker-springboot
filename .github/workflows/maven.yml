@@ -22,7 +22,7 @@ jobs:
           cache: 'maven'
 
       - name: Build with Maven
-        run: mvn clean package -DskipTests
+        run: mvn clean install
         
       - name: Login to Amazon ECR
         run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 767398147229.dkr.ecr.us-east-1.amazonaws.com
@@ -70,9 +70,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # - name: Create Amazon EKS cluster
-      #   run: |
-      #     eksctl create cluster --name springboot-github-workflow --version 1.28 --nodes=1 --node-type=t2.small --region us-east-1
+      - name: Create Amazon EKS cluster
+        run: |
+          eksctl create cluster --name springboot-github-workflow --version 1.28 --nodes=1 --node-type=t2.small --region us-east-1
 
       - name: Configure kubectl for Amazon EKS cluster
         run: aws eks --region us-east-1 update-kubeconfig --name springboot-github-workflow
