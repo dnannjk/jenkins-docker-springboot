@@ -45,7 +45,7 @@ jobs:
           docker push 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
   
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: demo
 
     steps:
       - name: Checkout code
