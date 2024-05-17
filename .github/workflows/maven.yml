@@ -36,7 +36,7 @@ jobs:
           sudo systemctl enable docker
 
       - name: Add GitHub Actions runner user to the docker group
-        run: sudo usermod -aG docker ${{ github.actor }}
+        run: sudo usermod -aG docker ubuntu
         
       - name: Login to Amazon ECR
         run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 767398147229.dkr.ecr.us-east-1.amazonaws.com
