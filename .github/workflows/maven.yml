@@ -35,6 +35,12 @@ jobs:
           sudo systemctl start docker
           sudo systemctl enable docker
 
+      - name: Install Docker Buildx
+        run: |
+          docker buildx install
+          docker buildx use default 
+          docker buildx version
+
       - name: Print $USER
         run: echo "The value of \$USER is $USER"
 
@@ -43,7 +49,7 @@ jobs:
         
       - name: Build Docker image
         run: |
-          docker build -t springboot-github-workflow-deployment .
+          docker buildx build -t springboot-github-workflow-deployment:latest .
         working-directory: .
 
       - name: Login to Amazon ECR
