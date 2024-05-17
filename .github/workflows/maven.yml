@@ -58,9 +58,9 @@ jobs:
 
       - name: Tag Docker image
         run: |
-          docker tag springboot-github-workflow-deployment:latest 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
+          sudo docker tag springboot-github-workflow-deployment:latest 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
         working-directory: .
 
       - name: Push Docker image to ECR
         run: |
-          docker push 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
+          sudo docker push 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
