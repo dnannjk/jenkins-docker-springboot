@@ -63,4 +63,4 @@ jobs:
 
       - name: Push Docker image to ECR
         run: |
-          docker push 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
+          sudo docker push 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
