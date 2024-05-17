@@ -27,6 +27,13 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean install
+
+      - name: Install Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo systemctl start docker
+          sudo systemctl enable docker
         
       - name: Login to Amazon ECR
         run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 767398147229.dkr.ecr.us-east-1.amazonaws.com
