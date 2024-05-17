@@ -8,7 +8,7 @@ on:
 
 jobs:
   build_and_push:
-    runs-on: demo
+    runs-on: springbootrunner
 
     steps:
       - name: Checkout code
