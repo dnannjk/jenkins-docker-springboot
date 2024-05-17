@@ -47,7 +47,7 @@ jobs:
         
       - name: Build Docker image
         run: |
-          docker buildx build -t springboot-github-workflow-deployment:latest .
+          sudo docker buildx build -t springboot-github-workflow-deployment:latest .
         working-directory: .
 
       - name: Login to Amazon ECR
