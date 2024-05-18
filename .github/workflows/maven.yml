@@ -31,8 +31,8 @@ jobs:
 
       - name: Install Docker Buildx
         run: |
-          docker buildx create --name mynewappbuilder5
-          docker buildx use mynewappbuilder5
+          docker buildx create --name mynewappbuilder6
+          docker buildx use mynewappbuilder6
           docker buildx inspect --bootstrap
 
       - name: Print $USER
