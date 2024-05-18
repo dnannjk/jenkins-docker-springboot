@@ -8,7 +8,7 @@ on:
 
 jobs:
   build_and_push:
-    runs-on: demo
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -45,15 +45,14 @@ jobs:
       - name: Add GitHub Actions runner user to the docker group
         run: sudo usermod -aG docker ${{ github.actor }}
         
-      # - name: Build Docker image
-      #   run: |
-      #     sudo docker buildx build -t springboot-github-workflow-deployment:latest .
+      - name: Build Docker image
+        run: |
+          sudo docker buildx build -t springboot-github-workflow-deployment:latest .
 
         working-directory: .
 
       - name: Login to Amazon ECR
         run: |
-          sudo docker buildx build --platform linux/amd64,linux/arm64 -t springboot-github-workflow-deployment:latest -f Dockerfile .
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 767398147229.dkr.ecr.us-east-1.amazonaws.com
           sudo docker tag springboot-github-workflow-deployment:latest 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
           sudo docker buildx build --platform linux/arm64 -t 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest --push .
