@@ -46,6 +46,7 @@ jobs:
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/y6y7n3n4
           docker buildx build --platform linux/amd64 -t myapp1:latest --push .
           docker tag myapp1:latest public.ecr.aws/y6y7n3n4/myapp1:latest
+          docker push dnannajk/springboot-github-action:tagname
           docker push public.ecr.aws/y6y7n3n4/myapp1:latest
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
