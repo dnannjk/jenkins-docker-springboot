@@ -31,7 +31,7 @@ jobs:
 
       - name: Install Docker Buildx
         run: |
-          docker buildx create --name mybuilder
+          docker buildx create --name mynewappbuilder
           docker buildx use mynewappbuilder
           docker buildx inspect --bootstrap
 
