@@ -31,8 +31,9 @@ jobs:
 
       - name: Install Docker Buildx
         run: |
-          sudo docker buildx create --name myappbuilder --use
-          sudo docker buildx inspect --bootstrap
+          docker buildx create --name mybuilder
+          docker buildx use mybuilder
+          docker buildx inspect --bootstrap
 
       - name: Print $USER
         run: echo "The value of \$USER is $USER"
@@ -43,9 +44,9 @@ jobs:
       - name: Login to Amazon ECR
         run: |
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 767398147229.dkr.ecr.us-east-1.amazonaws.com
-          sudo docker buildx build --platform linux/amd64 --driver docker-container -t my-app:latest .
-          sudo docker tag my-app:latest 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
-          sudo docker push 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
+          docker buildx build --platform linux/amd64 -t my-app:latest .
+          docker tag my-app:latest 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
+          docker push 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
