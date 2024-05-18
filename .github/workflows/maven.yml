@@ -31,9 +31,9 @@ jobs:
 
       - name: Install Docker Buildx
         run: |
-          docker buildx create --name mynewappbuilder6
+          docker buildx create --name mynewappbuilder7
           docker buildx use mynewappbuilder7
-          docker buildx inspect --bootstra7
+          docker buildx inspect --bootstrap
 
       - name: Print $USER
         run: echo "The value of \$USER is $USER"
