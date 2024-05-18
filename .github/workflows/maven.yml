@@ -31,7 +31,7 @@ jobs:
 
       - name: Install Docker Buildx
         run: |
-          sudo docker buildx create --name mybuilder --use
+          sudo docker buildx create --name myappbuilder --use
           sudo docker buildx inspect --bootstrap
 
       - name: Print $USER
