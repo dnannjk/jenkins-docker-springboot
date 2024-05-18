@@ -39,11 +39,11 @@ jobs:
           docker buildx use default 
           docker buildx version
 
-      # - name: Print $USER
-      #   run: echo "The value of \$USER is $USER"
+      - name: Print $USER
+        run: echo "The value of \$USER is $USER"
 
-      # - name: Add GitHub Actions runner user to the docker group
-      #   run: sudo usermod -aG docker ${{ github.actor }}
+      - name: Add GitHub Actions runner user to the docker group
+        run: sudo usermod -aG docker ${{ github.actor }}
         
       - name: Build Docker image
         run: |
