@@ -22,10 +22,6 @@ jobs:
           cache: 'maven'
           
       - name: Install Maven
-        run: |
-          sudo apt-get install -y maven
-
-      - name: Build with Maven
         run: mvn clean install
 
       - name: Install Docker
@@ -35,7 +31,8 @@ jobs:
 
       - name: Install Docker Buildx
         run: |
-          docker buildx version
+          sudo docker buildx create --name mybuilder --use
+          sudo docker buildx inspect --bootstrap
 
       - name: Print $USER
         run: echo "The value of \$USER is $USER"
@@ -46,25 +43,9 @@ jobs:
       - name: Login to Amazon ECR
         run: |
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 767398147229.dkr.ecr.us-east-1.amazonaws.com
-          sudo docker buildx build -t my-app:latest .
+          sudo docker buildx build --platform linux/amd64 --driver docker-container -t my-app:latest .
           sudo docker tag my-app:latest 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
-          sudo docker buildx build --platform linux/arm64 -t 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest --push .
+          sudo docker push 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      # - name: Build Docker image
-      #   run: |
-      #     sudo docker buildx build -t springboot-github-workflow-deployment:latest .
-      #     docker images
-      #   working-directory: .
-
-          
-      # - name: Tag Docker image
-      #   run: |
-      #     sudo docker tag springboot-github-workflow-deployment:latest 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
-      #   working-directory: .
-
-      # - name: Push Docker image to ECR
-      #   run: |
-      #     sudo docker push 767398147229.dkr.ecr.us-east-1.amazonaws.com/springboot-github-workflow-deployment:latest
