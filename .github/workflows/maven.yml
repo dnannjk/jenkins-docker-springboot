@@ -35,8 +35,6 @@ jobs:
 
       - name: Install Docker Buildx
         run: |
-          docker buildx install
-          docker buildx use default 
           docker buildx version
 
       - name: Print $USER
